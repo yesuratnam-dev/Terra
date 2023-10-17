@@ -1,26 +1,27 @@
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function.html
 
-data "aws_iam_policy_document" "assume_role" {
-  statement {
-    effect = "Allow"
+# data "aws_iam_policy_document" "assume_role" {
+#   statement {
+#     effect = "Allow"
 
-    principals {
-      type        = "Service"
-      identifiers = ["lambda.amazonaws.com"]
-    }
+#     principals {
+#       type        = "Service"
+#       identifiers = ["lambda.amazonaws.com"]
+#     }
 
-    actions = ["sts:AssumeRole"]
-  }
-}
+#     actions = ["sts:AssumeRole"]
+#   }
+# }
 
 resource "aws_iam_role" "iam_for_lambda" {
   name               = "iam_for_lambda"
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+  # assume_role_policy = data.aws_iam_policy_document.assume_role.json
+  assume_role_policy = file("policy.json")
 }
 
 data "archive_file" "lambda" {
   type        = "zip"
-  source_file = "lambda.js"
+  source_file = "lambda/lambda.py"
   output_path = "lambda_function_payload.zip"
 }
 
