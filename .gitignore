@@ -1,2 +1,5 @@
 .terraform
 .vscode
+/my_lambda_function
+*venv
+*__pycache__

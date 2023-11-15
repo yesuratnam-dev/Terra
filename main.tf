@@ -10,11 +10,23 @@ terraform {
 }
 
 provider "aws" {
-  region  = "us-west-2"
+  region  = "eu-west-1"
 }
 
 module "aws_s3_bucket" {
 
     source = "./s3"
+  
+}
+
+module "aws_vpc" {
+
+  source = "./vpc"
+  
+}
+
+module "lambda" {
+
+  source = "./lambda"
   
 }
